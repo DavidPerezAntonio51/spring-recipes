@@ -1,10 +1,10 @@
-package mx.com.dezkser.servicediscovery;
+package mx.com.dezkser.authserver;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ServiceDiscoveryApplicationTests {
+class AuthServerApplicationTests {
 
     @Test
     void contextLoads() {
