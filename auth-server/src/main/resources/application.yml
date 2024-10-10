@@ -1,10 +1,7 @@
 spring:
   application:
-    name: auth-server
+    name: "auth-server"
   security:
-    user:
-      name: user
-      password: password
     oauth2:
       authorizationserver:
         client:
@@ -18,7 +15,8 @@ spring:
                 - "authorization_code"
                 - "refresh_token"
               redirect-uris:
-                - "http://127.0.0.1:8080/login/oauth2/code/gateway-client"
+                - "http://localhost:8080/login/oauth2/code/gateway-client"
+                - "http://localhost:8080/authorized"
               post-logout-redirect-uris:
                 - "http://127.0.0.1:8080/"
               scopes:
@@ -27,3 +25,9 @@ spring:
             require-authorization-consent: true
 server:
   port: 9000
+logging:
+  level:
+    root: INFO
+    org.springframework.web: INFO
+    org.springframework.security: INFO
+    org.springframework.security.oauth2: TRACE
