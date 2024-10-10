@@ -25,7 +25,7 @@ spring:
         - id: "recipes"
           uri: "http://localhost:8089"
           predicates:
-            - Path=/recipes/**
+            - Path=/api/recipes/**
           filters:
             - TokenRelay=
 logging:

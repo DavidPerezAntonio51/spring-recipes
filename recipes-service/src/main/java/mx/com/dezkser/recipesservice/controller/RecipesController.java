@@ -11,7 +11,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @RestController
-@RequestMapping("/recipes")
+@RequestMapping("/api/recipes")
 public class RecipesController {
     private final RecipesService recipesService;
 
