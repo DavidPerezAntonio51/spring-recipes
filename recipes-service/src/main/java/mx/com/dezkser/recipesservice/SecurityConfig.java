@@ -16,6 +16,8 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((authorize) -> authorize
+                        .requestMatchers(HttpMethod.GET, "/recipes/**").hasAnyAuthority("SCOPE_recipes:read")
+                        .requestMatchers(HttpMethod.POST, "/recipes/**").hasAnyAuthority("SCOPE_recipes:writer")
                         .anyRequest().authenticated()
                 )
                 .oauth2ResourceServer((jwt) -> jwt

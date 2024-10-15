@@ -16,13 +16,23 @@ spring:
                 - "refresh_token"
               redirect-uris:
                 - "http://localhost:8080/login/oauth2/code/gateway-client"
-                - "http://localhost:8080/authorized"
               post-logout-redirect-uris:
-                - "http://127.0.0.1:8080/"
+                - "http://localhost:8080/"
               scopes:
                 - "openid"
                 - "profile"
             require-authorization-consent: true
+          recipes-service:
+            registration:
+              client-id: "recipes-service"
+              client-secret: "{noop}recipes"
+              client-authentication-methods:
+                - "client_secret_basic"
+              authorization-grant-types:
+                - "urn:ietf:params:oauth:grant-type:token-exchange"
+              scopes:
+                - "recipes:read"
+                - "recipes:write"
 server:
   port: 9000
 logging:

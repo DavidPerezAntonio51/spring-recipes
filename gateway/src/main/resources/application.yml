@@ -16,6 +16,17 @@ spring:
             redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
             client-authentication-method: "client_secret_basic"
             authorization-grant-type: "authorization_code"
+          recipes-service:
+            client-name: "Recipes Service"
+            client-id: "recipes-service"
+            client-secret: "recipes"
+            provider: "spring"
+            scope:
+              - "recipes:read"
+              - "recipes:write"
+            redirect-uri: "{baseUrl}/authorize/{registrationId}"
+            client-authentication-method: "client_secret_basic"
+            authorization-grant-type: "urn:ietf:params:oauth:grant-type:token-exchange"
         provider:
           spring:
             issuer-uri: "http://localhost:9000"
@@ -27,7 +38,7 @@ spring:
           predicates:
             - Path=/api/recipes/**
           filters:
-            - TokenRelay=
+            - TokenRelay=recipes-service
 logging:
   level:
     root: INFO
