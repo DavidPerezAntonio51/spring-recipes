@@ -63,7 +63,7 @@ public class AuthServerConfig {
         UserDetails userDetails = User.builder()
                 .username("user")
                 .password("{noop}password")
-                .roles("USER")
+                .roles("USER","USER_2")
                 .build();
 
         return new InMemoryUserDetailsManager(userDetails);
