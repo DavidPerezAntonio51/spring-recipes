@@ -32,6 +32,8 @@ spring:
             issuer-uri: "http://localhost:9000"
   cloud:
     gateway:
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
       routes:
         - id: "recipes"
           uri: "http://localhost:8089"
@@ -39,6 +41,10 @@ spring:
             - Path=/api/recipes/**
           filters:
             - TokenRelay=recipes-service
+        - id: "angular"
+          uri: "http://localhost:4200"
+          predicates:
+            - Path=/angular-ui/**,/assets/**
 logging:
   level:
     root: INFO

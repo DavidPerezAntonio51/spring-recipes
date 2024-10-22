@@ -4,8 +4,12 @@ import mx.com.dezkser.recipesservice.models.Recipe;
 import mx.com.dezkser.recipesservice.service.RecipesService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -50,6 +54,11 @@ public class RecipesController {
         Optional<Recipe> recipe = recipesService.getRecipeById(id);
         return recipe.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("/me")
+    public Authentication getRoles(Authentication authentication){
+        return authentication;
     }
 
     // Endpoint para buscar recetas por nombre

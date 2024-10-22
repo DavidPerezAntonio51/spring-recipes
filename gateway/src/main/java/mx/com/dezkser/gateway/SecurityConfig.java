@@ -29,6 +29,7 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeExchange((authorize) -> authorize
+                        .pathMatchers("/angular-ui/**","/assets/**").permitAll()
                         .anyExchange().authenticated()
                 )
                 .oauth2Login(oAuth2LoginSpec -> oAuth2LoginSpec
@@ -39,7 +40,7 @@ public class SecurityConfig {
                                     .setStatusCode(HttpStatus.FOUND);
                             webFilterExchange.getExchange().getResponse()
                                     .getHeaders()
-                                    .setLocation(URI.create("http://localhost:8080"));
+                                    .setLocation(URI.create("http://localhost:8080/angular-ui/authorized"));
                             return Mono.empty();
                         })
                 )
