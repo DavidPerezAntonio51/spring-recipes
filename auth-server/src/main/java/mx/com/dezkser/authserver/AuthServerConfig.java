@@ -15,6 +15,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.oauth2.core.oidc.OidcUserInfo;
+import org.springframework.security.oauth2.core.oidc.endpoint.OidcParameterNames;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.security.oauth2.core.oidc.user.OidcUserAuthority;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -86,9 +88,25 @@ public class AuthServerConfig {
     }
 
     @Bean
-    public OAuth2TokenCustomizer<JwtEncodingContext> jwtTokenCustomizer() {
+    public OAuth2TokenCustomizer<JwtEncodingContext> jwtTokenCustomizer(
+            OidcUserInfoService userInfoService
+    ) {
         return (context) -> {
             if (OAuth2TokenType.ACCESS_TOKEN.equals(context.getTokenType())) {
+                context.getClaims().claims((claims) -> {
+                    Set<String> roles = AuthorityUtils.authorityListToSet(context.getPrincipal().getAuthorities())
+                            .stream()
+                            .map(c -> c.replaceFirst("^ROLE_", ""))
+                            .collect(Collectors.collectingAndThen(Collectors.toSet(), Collections::unmodifiableSet));
+                    claims.put("roles", roles);
+                });
+            }
+            if (OidcParameterNames.ID_TOKEN.equals(context.getTokenType().getValue())) {
+                OidcUserInfo userInfo = userInfoService.loadUser(
+                        context.getPrincipal().getName());
+                context.getClaims().claims(claims ->
+                        claims.putAll(userInfo.getClaims()));
+
                 context.getClaims().claims((claims) -> {
                     Set<String> roles = AuthorityUtils.authorityListToSet(context.getPrincipal().getAuthorities())
                             .stream()

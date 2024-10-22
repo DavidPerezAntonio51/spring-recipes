@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HomeController {
 
-    @GetMapping("/me")
+    @GetMapping("/api/iam")
     public OidcUser getRoles(@AuthenticationPrincipal OidcUser authentication){
         return authentication;
     }

@@ -45,6 +45,12 @@ spring:
           uri: "http://localhost:4200"
           predicates:
             - Path=/angular-ui/**,/assets/**
+        - id: "userInfo"
+          uri: "http://localhost:9000"
+          predicates:
+            - Path=/userinfo
+          filters:
+            - TokenRelay=
 logging:
   level:
     root: INFO
