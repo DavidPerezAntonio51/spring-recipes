@@ -33,6 +33,17 @@ spring:
               scopes:
                 - "recipes:read"
                 - "recipes:write"
+          ticket-service:
+            registration:
+              client-id: "ticket-service"
+              client-secret: "{noop}ticket"
+              client-authentication-methods:
+                - "client_secret_basic"
+              authorization-grant-types:
+                - "urn:ietf:params:oauth:grant-type:token-exchange"
+              scopes:
+                - "ticket:read"
+                - "ticket:write"
 server:
   port: 9000
 logging:

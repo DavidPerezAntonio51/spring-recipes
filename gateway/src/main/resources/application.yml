@@ -27,6 +27,17 @@ spring:
             redirect-uri: "{baseUrl}/authorize/{registrationId}"
             client-authentication-method: "client_secret_basic"
             authorization-grant-type: "urn:ietf:params:oauth:grant-type:token-exchange"
+          ticket-service:
+            client-name: "Ticket Service"
+            client-id: "ticket-service"
+            client-secret: "ticket"
+            provider: "spring"
+            scope:
+              - "ticket:read"
+              - "ticket:write"
+            redirect-uri: "{baseUrl}/authorize/{registrationId}"
+            client-authentication-method: "client_secret_basic"
+            authorization-grant-type: "urn:ietf:params:oauth:grant-type:token-exchange"
         provider:
           spring:
             issuer-uri: "http://localhost:9000"
@@ -41,6 +52,12 @@ spring:
             - Path=/api/recipes/**
           filters:
             - TokenRelay=recipes-service
+        - id: "tickets"
+          uri: "http://localhost:8088"
+          predicates:
+            - Path=/api/ticket/**
+          filters:
+            - TokenRelay=ticket-service
         - id: "angular"
           uri: "http://localhost:4200"
           predicates:
