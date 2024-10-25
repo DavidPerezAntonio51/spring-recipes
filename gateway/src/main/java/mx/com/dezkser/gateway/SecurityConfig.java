@@ -40,7 +40,7 @@ public class SecurityConfig {
                                     .setStatusCode(HttpStatus.FOUND);
                             webFilterExchange.getExchange().getResponse()
                                     .getHeaders()
-                                    .setLocation(URI.create("http://localhost:8080/angular-ui/authorized"));
+                                    .setLocation(URI.create("http://localhost:8080/angular-ui/dashboard"));
                             return Mono.empty();
                         })
                 )

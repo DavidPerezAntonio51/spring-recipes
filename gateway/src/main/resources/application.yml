@@ -52,10 +52,12 @@ spring:
             - Path=/api/recipes/**
           filters:
             - TokenRelay=recipes-service
+            - Header=Netcas-Agent,DESS-Angular
         - id: "tickets"
           uri: "http://localhost:8088"
           predicates:
             - Path=/api/ticket/**
+            - Header=Netcas-Agent,DESS-Angular
           filters:
             - TokenRelay=ticket-service
         - id: "angular"
@@ -68,6 +70,8 @@ spring:
             - Path=/userinfo
           filters:
             - TokenRelay=
+            - Header=Netcas-Agent,DESS-Angular
+
 logging:
   level:
     root: INFO
