@@ -50,9 +50,9 @@ spring:
           uri: "http://localhost:8089"
           predicates:
             - Path=/api/recipes/**
+            - Header=Netcas-Agent,DESS-Angular
           filters:
             - TokenRelay=recipes-service
-            - Header=Netcas-Agent,DESS-Angular
         - id: "tickets"
           uri: "http://localhost:8088"
           predicates:
@@ -68,9 +68,9 @@ spring:
           uri: "http://localhost:9000"
           predicates:
             - Path=/userinfo
+            - Header=Netcas-Agent,DESS-Angular
           filters:
             - TokenRelay=
-            - Header=Netcas-Agent,DESS-Angular
 
 logging:
   level:
