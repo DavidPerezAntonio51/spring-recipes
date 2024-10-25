@@ -71,6 +71,19 @@ spring:
             - Header=Netcas-Agent,DESS-Angular
           filters:
             - TokenRelay=
+        - id: "Root Path"
+          uri: "http://localhost:4200"
+          predicates:
+            - Path=/
+            - Method=GET
+          filters:
+            - SetPath=/angular-ui/login
+        - id: "Fallback redirect"
+          uri: "http://localhost:4200"
+          predicates:
+            - Path=/**
+          filters:
+            - RewritePath=/?(?<segment>.*),/angular-ui/$\{segment}
 
 logging:
   level:
